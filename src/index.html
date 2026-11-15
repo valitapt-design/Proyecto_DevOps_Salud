@@ -10,7 +10,7 @@
 <body>
 
     <header class="header">
-        <h1>Centro Médico Salud+</h1>
+        <h1>Centro Médico Salud</h1>
         <p>Plataforma de reserva de horas médicas</p>
     </header>
 
@@ -26,16 +26,17 @@
             Servicio disponible
         </section>
 
-        <form class="booking-form">
+        <form class="booking-form" id="booking-form">
 
             <h3>Datos de atención</h3>
 
             <label for="nombre">Nombre del paciente</label>
             <input type="text" id="nombre"
-                   placeholder="Paciente de demostración">
+                   placeholder="Paciente de demostración"
+                   required>
 
             <label for="especialidad">Especialidad médica</label>
-            <select id="especialidad">
+            <select id="especialidad" required>
                 <option value="">Seleccionar especialidad</option>
                 <option>Medicina General</option>
                 <option>Cardiología</option>
@@ -45,17 +46,17 @@
             </select>
 
             <label for="profesional">Profesional</label>
-            <select id="profesional">
+            <select id="profesional" required>
                 <option value="">Seleccionar profesional</option>
                 <option>Profesional de demostración 1</option>
                 <option>Profesional de demostración 2</option>
             </select>
 
             <label for="fecha">Fecha de atención</label>
-            <input type="date" id="fecha">
+            <input type="date" id="fecha" required>
 
             <label for="hora">Horario disponible</label>
-            <select id="hora">
+            <select id="hora" required>
                 <option value="">Seleccionar horario</option>
                 <option>09:00</option>
                 <option>10:00</option>
@@ -65,9 +66,12 @@
                 <option>16:00</option>
             </select>
 
-            <button type="button">
+            <button type="submit">
                 Simular reserva
             </button>
+
+            <div id="resultado-reserva" role="status"
+                 aria-live="polite"></div>
 
         </form>
 
@@ -77,6 +81,54 @@
         </footer>
 
     </main>
+
+    <script>
+        const formulario = document.getElementById("booking-form");
+
+        formulario.addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            const nombre = document.getElementById("nombre").value.trim();
+            const especialidad = document.getElementById("especialidad").value;
+            const profesional = document.getElementById("profesional").value;
+            const fecha = document.getElementById("fecha").value;
+            const hora = document.getElementById("hora").value;
+
+            const resultado = document.getElementById("resultado-reserva");
+
+            if (!nombre || !especialidad || !profesional || !fecha || !hora) {
+                resultado.textContent = "Por favor, completa todos los campos.";
+                resultado.style.backgroundColor = "#fee2e2";
+                resultado.style.color = "#991b1b";
+                resultado.style.padding = "15px";
+                return;
+            }
+
+            resultado.innerHTML = "";
+
+            const titulo = document.createElement("strong");
+            titulo.textContent = "¡Reserva simulada correctamente!";
+
+            const detalle = document.createElement("p");
+            detalle.textContent =
+                "Paciente: " + nombre +
+                " | Especialidad: " + especialidad +
+                " | Profesional: " + profesional +
+                " | Fecha: " + fecha +
+                " | Horario: " + hora;
+
+            resultado.appendChild(titulo);
+            resultado.appendChild(detalle);
+
+            resultado.style.backgroundColor = "#d1fae5";
+            resultado.style.color = "#166534";
+            resultado.style.padding = "15px";
+            resultado.style.marginTop = "15px";
+            resultado.style.borderRadius = "8px";
+
+        });
+    </script>
 
 </body>
 </html>
