@@ -44,7 +44,7 @@ Proyecto_DevOps_Salud/
 
 Clonar el repositorio:
 
-git clone URL_DEL_REPOSITORIO
+git clone https://github.com/valitapt-design/Proyecto_DevOps_Salud.git
 
 Ingresar a la carpeta:
 
